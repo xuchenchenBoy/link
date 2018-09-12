@@ -12,7 +12,7 @@
 	"compileType": "miniprogram",
 	"appid": "wx9d3d3ce10be67a4f",
 	"projectname": "link",
-	"libVersion": "2.2.5",
+	"libVersion": "2.3.0",
 	"condition": {
 		"search": {
 			"current": -1,
