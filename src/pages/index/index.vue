@@ -1,6 +1,6 @@
 <template>
   <div class="container" >
-    <card v-bind:name="item.name" v-bind:avatar="item.avatar" v-bind:comment="item.comment" />
+    <card v-bind:dataProvider="lifeData.list[selectIdx]" />
     <div class="empty-card"></div>
     <div class="bottom">
       <text key="1" v-on:click="prev" class="shift">前篇</text>
@@ -24,11 +24,6 @@ export default {
         totalItem: 0,
         totalPage: 0
       },
-      item: {
-        name: '',
-        avatar: '',
-        comment: ''
-      },
       selectIdx: 0,
       requesting: false
     }
@@ -49,7 +44,6 @@ export default {
       }).then(res => {
         console.log(res)
         this.lifeData = { ...res.result, list: this.lifeData.list.concat(res.result.list || []) }
-        this.item = this.lifeData.list[this.selectIdx]
         this.requesting = false
       }).catch(err => {
         this.requesting = false
@@ -60,7 +54,6 @@ export default {
     prev() {
       if (this.selectIdx <= 0) return
       this.selectIdx -= 1
-      this.item = this.lifeData.list[this.selectIdx]
     },
 
     next() {
@@ -72,8 +65,6 @@ export default {
       if (this.selectIdx >= currentCount) {
         this.requesting = true
         this.getList(page + 1, size)
-      } else {
-        this.item = this.lifeData.list[this.selectIdx]
       }
     }
   },
@@ -85,11 +76,7 @@ export default {
 </script>
 
 <style scoped>
-  .empty-card {
-
-  }
-
-  .empty-card:before {
+.empty-card:before {
   content: '';
   position: absolute;
   top: 110rpx;
@@ -132,7 +119,8 @@ export default {
 }
 
 .shift {
-  padding: 0 30rpx;
+  padding: 0 40rpx;
+  font-size: 34rpx;
   color: #4183c4;
 }
 

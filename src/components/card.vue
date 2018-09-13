@@ -1,22 +1,34 @@
 <template>
   <div class="wrapper">
     <div class="card">
-      <image class="avatar" v-bind:src="avatar"></image>
-      <p class="title">{{name}}</p>
-      <scroll-view class="desc" scroll-y>
-        {{comment}}
-      </scroll-view>
+      <template v-if="dataProvider.name">
+        <image class="avatar" v-bind:src="dataProvider.avatar"></image>
+        <p class="title">{{dataProvider.name}}</p>
+        <scroll-view class="desc" scroll-y>
+          {{dataProvider.comment}}
+          <p class="time">{{dataProvider.time}}</p>
+        </scroll-view>
+      </template>
+      <div class="no-data" v-else>加载中...</div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['name', 'comment', 'avatar']
+  props: {
+    name: String,
+    comment: String,
+    avatar: String,
+    dataProvider: {
+      type: Object,
+      default: {}
+    }
+  }
 }
 </script>
 
-<style>
+<style scoped>
 .wrapper {
   position: relative;
   width: 100%;
@@ -58,6 +70,20 @@ export default {
   overflow-y: auto;
   line-height: 40rpx;
   font-size: 28rpx;
+  color: #9B9B9B;
+}
+
+.time {
+  padding-top: 30rpx;
+  text-align: right;
+  font-size: 24rpx;
+  color: #9B9B9B;
+}
+
+.no-data {
+  padding-top: 200rpx;
+  text-align: center;
+  font-size: 30rpx;
   color: #9B9B9B;
 }
 </style>
