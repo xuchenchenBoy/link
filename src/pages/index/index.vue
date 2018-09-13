@@ -69,6 +69,13 @@ export default {
     }
   },
 
+  onShareAppMessage(res) {
+    return {
+      title: '而立的我们',
+      path: '/pages/index/main'
+    }
+  },
+
   created () {
     this.getList()
   }
