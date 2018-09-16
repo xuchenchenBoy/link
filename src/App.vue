@@ -2,7 +2,10 @@
 export default {
   created () {
     if (!wx.cloud) {
-      console.error('请使用最新版本的微信')
+      wx.showToast({
+        title: '请使用最新版本的微信',
+        icon: 'none'
+      })
     } else {
       wx.cloud.init({
         traceUser: true
@@ -21,6 +24,7 @@ export default {
 <style>
 page {
   height: 100%;
+  background: #f8f8f8;
 }
 
 .container {

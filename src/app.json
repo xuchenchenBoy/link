@@ -1,12 +1,14 @@
 {
   "cloud": true,
   "pages": [
-    "pages/index/main"
+    "pages/topic/main",
+    "pages/topicDetail/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#f8f8f8",
     "navigationBarTitleText": "Link",
+    "backgroundColor": "#f8f8f8",
     "navigationBarTextStyle": "black"
   }
 }

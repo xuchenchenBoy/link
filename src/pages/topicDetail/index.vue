@@ -3,9 +3,9 @@
     <card v-bind:dataProvider="lifeData.list[selectIdx]" />
     <div class="empty-card"></div>
     <div class="bottom">
-      <text key="1" v-on:click="prev" class="shift">前篇</text>
+      <!-- <text key="1" v-on:click="prev" class="shift">前篇</text> -->
       <text key="2">{{selectIdx + 1}}/{{lifeData.totalItem}}</text>
-      <text key="3" v-on:click="next" class="shift">后篇</text>
+      <!-- <text key="3" v-on:click="next" class="shift">后篇</text> -->
     </div>
   </div>
 </template>
@@ -25,7 +25,9 @@ export default {
         totalPage: 0
       },
       selectIdx: 0,
-      requesting: false
+      requesting: false,
+      collection: '', // 查寻的明细数据库名
+      title: ''
     }
   },
 
@@ -36,18 +38,21 @@ export default {
   methods: {
     getList(page = INIT_PAGE, size = INIT_SIZE) {
       wx.cloud.callFunction({
-        name: 'life',
+        name: 'topicDetail',
         data: {
           page,
-          size
+          size,
+          collection: this.collection
         }
       }).then(res => {
-        console.log(res)
         this.lifeData = { ...res.result, list: this.lifeData.list.concat(res.result.list || []) }
         this.requesting = false
       }).catch(err => {
         this.requesting = false
-        console.error(err)
+        wx.showToast({
+          title: '请求失败，请稍后再试',
+          icon: 'none'
+        })
       })
     },
 
@@ -70,13 +75,20 @@ export default {
   },
 
   onShareAppMessage(res) {
+    const { title, collection } = this;
     return {
-      title: '而立的我们',
-      path: '/pages/index/main'
+      title,
+      path: `/pages/topicDetail/main?collection=${collection}&title=${title}`
     }
   },
 
-  created () {
+  mounted (e) {
+    const { collection, title } = this.$root.$mp.query;
+    wx.setNavigationBarTitle({
+      title
+    })
+    this.collection = collection;
+    this.title = title;
     this.getList()
   }
 }
@@ -118,7 +130,7 @@ export default {
 .bottom {
   position: absolute;
   left: 0;
-  top: 1050rpx;
+  top: 1020rpx;
   width: 100%;
   text-align: center;
   color: #9B9B9B;
