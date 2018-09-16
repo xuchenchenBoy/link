@@ -1,3 +1,4 @@
 {
-  "navigationBarTitleText": "loading..."
+  "navigationBarTitleText": "loading...",
+  "disableScroll": true
 }

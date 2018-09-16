@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <div class="card">
+    <div :style="{transform: 'translate(' + touch.touchMoveX + 'px,' +  touch.touchMoveY + 'px)'}" @touchstart.prevent="touchStart" @touchmove.prevent="touchMove" @touchend.prevent="touchEnd" ref="back" class="card">
       <template v-if="dataProvider.name">
         <image class="avatar" v-bind:src="dataProvider.avatar"></image>
         <p class="title">{{dataProvider.name}}</p>
@@ -24,6 +24,72 @@ export default {
       type: Object,
       default: {}
     }
+  },
+
+  data() {
+    return {
+      touch: {
+        startX: 0,
+        startY: 0,
+        touchMoveY: 0,
+        touchMoveX: 0,
+        direction: ''
+      }
+    }
+  },
+
+  methods: {
+    touchStart(e) {
+      const touch = e.touches[0]
+      this.touch.startX = touch.pageX
+      this.touch.startY = touch.pageY
+      this.touch.touchMoveX = 0;
+      this.touch.touchMoveY = 0;
+    },
+    touchMove(e) {
+      const touch = e.touches[0]
+      this.touch.touchMoveX = touch.pageX - this.touch.startX
+      this.touch.touchMoveY = touch.pageY - this.touch.startY
+    },
+    touchEnd() {
+      if (Math.abs(this.touch.touchMoveX) > 100) {
+        this.touch.direction = this.touch.touchMoveX > 0 ? 'right' : 'left';
+        this.translate({ 
+          fromPosX: this.touch.touchMoveX, 
+          toPosX: this.windowW, 
+          duration: 200, 
+          direction: this.touch.direction
+        })
+      } else {
+        this.touch.touchMoveX = 0;
+        this.touch.touchMoveY = 0;
+      }
+      this.touch.startX = 0
+      this.touch.startY = 0
+    },
+    translate({ fromPosX, toPosX, duration, direction }) {
+      const startTime = Date.now();
+      const run = () => {
+        setTimeout(() => {
+          const nowTime = Date.now();
+          let percent = (nowTime - startTime) / duration;
+          if (percent >= 1) {
+            percent = 1;
+            this.touch.direction = '';
+          }
+          const posOrNeg = direction === 'left' ? -1 : 1;
+          this.touch.touchMoveX = toPosX * percent * posOrNeg + fromPosX;
+          if (percent < 1) {
+            run()
+          } 
+        }, 100);
+      }
+      run()
+    }
+  },
+
+  mounted() {
+    this.windowW = wx.getSystemInfoSync().windowWidth;
   }
 }
 </script>

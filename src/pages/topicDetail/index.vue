@@ -1,5 +1,5 @@
 <template>
-  <div class="container" >
+  <div class="container detail-wrapper" >
     <card v-bind:dataProvider="lifeData.list[selectIdx]" />
     <div class="empty-card"></div>
     <div class="bottom">
@@ -56,10 +56,10 @@ export default {
       })
     },
 
-    prev() {
-      if (this.selectIdx <= 0) return
-      this.selectIdx -= 1
-    },
+    // prev() {
+    //   if (this.selectIdx <= 0) return
+    //   this.selectIdx -= 1
+    // },
 
     next() {
       if (this.requesting) return
@@ -95,6 +95,10 @@ export default {
 </script>
 
 <style scoped>
+.detail-wrapper {
+  overflow: hidden;
+}
+
 .empty-card:before {
   content: '';
   position: absolute;
