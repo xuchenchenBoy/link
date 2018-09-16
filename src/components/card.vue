@@ -4,10 +4,10 @@
       <template v-if="dataProvider.name">
         <image class="avatar" v-bind:src="dataProvider.avatar"></image>
         <p class="title">{{dataProvider.name}}</p>
-        <scroll-view class="desc" scroll-y>
-          {{dataProvider.comment}}
+        <view class="desc">
+           {{dataProvider.comment}}
           <p class="time">{{dataProvider.time}}</p>
-        </scroll-view>
+        </view>
       </template>
       <div class="no-data" v-else>加载中...</div>
     </div>
@@ -96,19 +96,20 @@ export default {
 
 <style scoped>
 .wrapper {
-  position: relative;
   width: 100%;
+  padding-top: 130rpx;
+  padding-bottom: 50rpx;
 }
 
 .card {
-  position: absolute;
-  top: 130rpx;
+  position: relative;
+  top: 0;
   left: 0;
   right: 0;
   z-index: 99;
-  width: 500rpx;
-  height: 800rpx;
-  padding: 20rpx 40rpx;
+  width: 485rpx;
+  min-height: 600rpx;
+  padding: 40rpx 50rpx;
   margin: auto;
   background: #fff;
   border-radius: 7rpx;
@@ -127,13 +128,11 @@ export default {
 .title {
   padding-bottom: 20rpx;
   text-align: center;
-  font-size: 34rpx;
+  font-size: 32rpx;
   color: #343434;
 }
 
 .desc {
-  height: 610rpx;
-  overflow-y: auto;
   line-height: 40rpx;
   font-size: 28rpx;
   color: #9B9B9B;

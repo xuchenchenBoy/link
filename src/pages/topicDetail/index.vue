@@ -107,7 +107,7 @@ export default {
   right: 0;
   z-index: 9;
   width: 460rpx;
-  height: 680rpx;
+  height: 600rpx;
   padding: 20rpx 40rpx;
   margin: auto;
   background: #fff;
@@ -123,7 +123,7 @@ export default {
   right: 0;
   z-index: 9;
   width: 480rpx;
-  height: 680rpx;
+  height: 600rpx;
   padding: 20rpx 40rpx;
   margin: auto;
   background: #fff;
@@ -132,9 +132,6 @@ export default {
 }
 
 .bottom {
-  position: absolute;
-  left: 0;
-  top: 1020rpx;
   width: 100%;
   text-align: center;
   color: #9B9B9B;
