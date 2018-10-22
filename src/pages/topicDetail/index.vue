@@ -1,11 +1,18 @@
 <template>
   <div class="container detail-wrapper" >
-    <card v-bind:dataProvider="lifeData.list[selectIdx]" />
+    <template v-for="(item, index) in lifeData.list" >
+      <!-- <card 
+        v-bind:key="item.id"
+        @onShift="onShift" 
+        v-bind:dataProvider="item" 
+        v-bind:zIndex="-index" 
+      /> -->
+    </template>
+    <div class="empty-card"></div>
+    <div class="empty-card"></div>
     <div class="empty-card"></div>
     <div class="bottom">
-      <!-- <text key="1" v-on:click="prev" class="shift">前篇</text> -->
       <text key="2">{{selectIdx + 1}}/{{lifeData.totalItem}}</text>
-      <!-- <text key="3" v-on:click="next" class="shift">后篇</text> -->
     </div>
   </div>
 </template>
@@ -56,12 +63,7 @@ export default {
       })
     },
 
-    // prev() {
-    //   if (this.selectIdx <= 0) return
-    //   this.selectIdx -= 1
-    // },
-
-    next() {
+    onShift() {
       if (this.requesting) return
       if (this.selectIdx >= this.lifeData.totalItem) return
       this.selectIdx += 1
@@ -99,36 +101,36 @@ export default {
   overflow: hidden;
 }
 
-.empty-card:before {
-  content: '';
+.empty-card {
   position: absolute;
-  top: 110rpx;
   left: 0;
   right: 0;
-  z-index: 9;
-  width: 460rpx;
-  height: 600rpx;
-  padding: 20rpx 40rpx;
+  padding: 40rpx 50rpx;
   margin: auto;
   background: #fff;
   border-radius: 7rpx;
-  box-shadow: 0rpx 0rpx 20rpx 0 rgba(0,0,0,.17);
+  box-shadow: 0rpx 2rpx 20rpx 0 rgba(0,0,0,.17);
 }
 
-.empty-card:after {
-  content: '';
-  position: absolute;
+.empty-card:nth-of-type(1) {
+  top: 130rpx;
+  z-index: 30;
+  width: 500rpx;
+  height: 660rpx;
+}
+
+.empty-card:nth-of-type(2) {
   top: 120rpx;
-  left: 0;
-  right: 0;
-  z-index: 9;
+  z-index: 20;
   width: 480rpx;
-  height: 600rpx;
-  padding: 20rpx 40rpx;
-  margin: auto;
-  background: #fff;
-  border-radius: 7rpx;
-  box-shadow: 0rpx 0rpx 20rpx 0 rgba(0,0,0,.17);
+  height: 660rpx;
+}
+
+.empty-card:nth-of-type(3) {
+  top: 110rpx;
+  z-index: 10;
+  width: 460rpx;
+  height: 660rpx;
 }
 
 .bottom {

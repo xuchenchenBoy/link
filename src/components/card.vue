@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" :style="{zIndex: zIndex + 99 }">
     <div :style="{transform: 'translate(' + touch.touchMoveX + 'px,' +  touch.touchMoveY + 'px)'}" @touchstart.prevent="touchStart" @touchmove.prevent="touchMove" @touchend.prevent="touchEnd" ref="back" class="card">
       <template v-if="dataProvider.name">
         <image class="avatar" v-bind:src="dataProvider.avatar"></image>
@@ -23,7 +23,8 @@ export default {
     dataProvider: {
       type: Object,
       default: {}
-    }
+    },
+    zIndex: Number
   },
 
   data() {
@@ -76,6 +77,7 @@ export default {
           if (percent >= 1) {
             percent = 1;
             this.touch.direction = '';
+            this.$emit('onShift')
           }
           const posOrNeg = direction === 'left' ? -1 : 1;
           this.touch.touchMoveX = toPosX * percent * posOrNeg + fromPosX;
@@ -96,6 +98,8 @@ export default {
 
 <style scoped>
 .wrapper {
+  position: fixed;
+  z-index:99;
   width: 100%;
   padding-top: 130rpx;
   padding-bottom: 50rpx;
@@ -108,7 +112,7 @@ export default {
   right: 0;
   z-index: 99;
   width: 485rpx;
-  min-height: 600rpx;
+  height: 660rpx;
   padding: 40rpx 50rpx;
   margin: auto;
   background: #fff;
