@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper" :style="{zIndex: zIndex + 99 }">
-    <div :style="{transform: 'translate(' + touch.touchMoveX + 'px,' +  touch.touchMoveY + 'px)'}" @touchstart.prevent="touchStart" @touchmove.prevent="touchMove" @touchend.prevent="touchEnd" ref="back" class="card">
+    <div :style="{transform: 'translate(' + touch.touchMoveX + 'px,' +  touch.touchMoveY + 'px)', boxShadow: selected ? '0rpx 2rpx 20rpx 0 rgba(0,0,0,.17)' : 'none' }" @touchstart.prevent="touchStart" @touchmove.prevent="touchMove" @touchend.prevent="touchEnd" ref="back" class="card">
       <template v-if="dataProvider.name">
         <image class="avatar" v-bind:src="dataProvider.avatar"></image>
         <p class="title">{{dataProvider.name}}</p>
@@ -24,7 +24,8 @@ export default {
       type: Object,
       default: {}
     },
-    zIndex: Number
+    zIndex: Number,
+    selected: Boolean
   },
 
   data() {
@@ -111,7 +112,7 @@ export default {
   left: 0;
   right: 0;
   z-index: 99;
-  width: 485rpx;
+  width: 500rpx;
   height: 660rpx;
   padding: 40rpx 50rpx;
   margin: auto;

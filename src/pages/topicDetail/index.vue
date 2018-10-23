@@ -1,16 +1,16 @@
 <template>
   <div class="container detail-wrapper" >
-    <template v-for="(item, index) in lifeData.list" >
-      <!-- <card 
-        v-bind:key="item.id"
-        @onShift="onShift" 
-        v-bind:dataProvider="item" 
-        v-bind:zIndex="-index" 
-      /> -->
-    </template>
-    <div class="empty-card"></div>
-    <div class="empty-card"></div>
-    <div class="empty-card"></div>
+    <!-- <card 
+      v-for="(item, index) in lifeData.list"
+      v-bind:key="item.id"
+      @onShift="onShift" 
+      v-bind:dataProvider="item" 
+      v-bind:zIndex="-index" 
+      v-bind:selected="selectIdx === index"
+    /> -->
+    <div class="empty-card empty-card-1"><loading /></div>
+    <div class="empty-card empty-card-2"></div>
+    <div class="empty-card empty-card-3"></div>
     <div class="bottom">
       <text key="2">{{selectIdx + 1}}/{{lifeData.totalItem}}</text>
     </div>
@@ -19,6 +19,7 @@
 
 <script>
 import card from '@/components/card'
+import loading from '@/components/loading'
 import { INIT_PAGE, INIT_SIZE } from '@/constants'
 
 export default {
@@ -34,12 +35,13 @@ export default {
       selectIdx: 0,
       requesting: false,
       collection: '', // 查寻的明细数据库名
-      title: ''
+      title: '',
     }
   },
 
   components: {
-    card
+    card,
+    loading
   },
 
   methods: {
@@ -112,21 +114,21 @@ export default {
   box-shadow: 0rpx 2rpx 20rpx 0 rgba(0,0,0,.17);
 }
 
-.empty-card:nth-of-type(1) {
+.empty-card-1 {
   top: 130rpx;
   z-index: 30;
   width: 500rpx;
   height: 660rpx;
 }
 
-.empty-card:nth-of-type(2) {
+.empty-card-2 {
   top: 120rpx;
   z-index: 20;
   width: 480rpx;
   height: 660rpx;
 }
 
-.empty-card:nth-of-type(3) {
+.empty-card-3 {
   top: 110rpx;
   z-index: 10;
   width: 460rpx;

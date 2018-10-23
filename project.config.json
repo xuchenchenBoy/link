@@ -37,7 +37,7 @@
 					"id": 0,
 					"name": "明细",
 					"pathName": "pages/topicDetail/main",
-					"query": "collection=life&title=28岁"
+					"query": "collection=life&title=link"
 				}
 			]
 		}
