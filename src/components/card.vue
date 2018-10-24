@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" :style="{zIndex: zIndex + 99 }">
+  <div v-show="showCard" class="wrapper" :style="{zIndex: zIndex + 99 }">
     <div :style="{transform: 'translate(' + touch.touchMoveX + 'px,' +  touch.touchMoveY + 'px)', boxShadow: selected ? '0rpx 2rpx 20rpx 0 rgba(0,0,0,.17)' : 'none' }" @touchstart.prevent="touchStart" @touchmove.prevent="touchMove" @touchend.prevent="touchEnd" ref="back" class="card">
       <template v-if="dataProvider.name">
         <image class="avatar" v-bind:src="dataProvider.avatar"></image>
@@ -36,12 +36,14 @@ export default {
         touchMoveY: 0,
         touchMoveX: 0,
         direction: ''
-      }
+      },
+      showCard: true
     }
   },
 
   methods: {
     touchStart(e) {
+      console.log('e===', e)
       const touch = e.touches[0]
       this.touch.startX = touch.pageX
       this.touch.startY = touch.pageY
@@ -78,6 +80,7 @@ export default {
           if (percent >= 1) {
             percent = 1;
             this.touch.direction = '';
+            this.showCard = false;
             this.$emit('onShift')
           }
           const posOrNeg = direction === 'left' ? -1 : 1;

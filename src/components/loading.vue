@@ -14,8 +14,8 @@
 
 <style lang="less" scoped>
 .spinner {
-  margin: 200px auto 0;
-  width: 150px;
+  margin: 200rpx auto 0;
+  width: 300rpx;
   text-align: center;
 }
 

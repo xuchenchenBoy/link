@@ -1,13 +1,13 @@
 <template>
   <div class="container detail-wrapper" >
-    <!-- <card 
+    <card 
       v-for="(item, index) in lifeData.list"
       v-bind:key="item.id"
       @onShift="onShift" 
       v-bind:dataProvider="item" 
       v-bind:zIndex="-index" 
       v-bind:selected="selectIdx === index"
-    /> -->
+    />
     <div class="empty-card empty-card-1"><loading /></div>
     <div class="empty-card empty-card-2"></div>
     <div class="empty-card empty-card-3"></div>
@@ -20,7 +20,8 @@
 <script>
 import card from '@/components/card'
 import loading from '@/components/loading'
-import { INIT_PAGE, INIT_SIZE } from '@/constants'
+import { INIT_START_IDX, INIT_SIZE } from '@/constants'
+import { getToken } from '@/utils/authorize'
 
 export default {
   data () {
@@ -28,7 +29,7 @@ export default {
       lifeData: {
         list: [],
         size: INIT_SIZE,
-        page: INIT_PAGE,
+        startIdx: INIT_START_IDX,
         totalItem: 0,
         totalPage: 0
       },
@@ -45,16 +46,17 @@ export default {
   },
 
   methods: {
-    getList(page = INIT_PAGE, size = INIT_SIZE) {
+    getList(startIdx = INIT_START_IDX, size = INIT_SIZE) {
       wx.cloud.callFunction({
         name: 'topicDetail',
         data: {
-          page,
+          startIdx,
           size,
+          token: getToken(),
           collection: this.collection
         }
       }).then(res => {
-        this.lifeData = { ...res.result, list: this.lifeData.list.concat(res.result.list || []) }
+        this.lifeData = { ...res.result, list: res.result.list || [] }
         this.requesting = false
       }).catch(err => {
         this.requesting = false
@@ -67,13 +69,12 @@ export default {
 
     onShift() {
       if (this.requesting) return
-      if (this.selectIdx >= this.lifeData.totalItem) return
       this.selectIdx += 1
-      const { page, size } = this.lifeData
-      const currentCount = (page + 1) * size
+      const currentCount = this.lifeData.list.length
       if (this.selectIdx >= currentCount) {
         this.requesting = true
-        this.getList(page + 1, size)
+        const startIdx = this.lifeData.startIdx + this.lifeData.list.length;
+        this.getList(startIdx, size)
       }
     }
   },
