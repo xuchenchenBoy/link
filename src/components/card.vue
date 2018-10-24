@@ -2,7 +2,7 @@
   <div v-show="showCard" class="wrapper" :style="{zIndex: zIndex + 99 }">
     <div :style="{transform: 'translate(' + touch.touchMoveX + 'px,' +  touch.touchMoveY + 'px)', boxShadow: selected ? '0rpx 2rpx 20rpx 0 rgba(0,0,0,.17)' : 'none' }" @touchstart.prevent="touchStart" @touchmove.prevent="touchMove" @touchend.prevent="touchEnd" ref="back" class="card">
       <template v-if="dataProvider.name">
-        <image class="avatar" v-bind:src="dataProvider.avatar"></image>
+        <view class="avatar-wrapper"><image class="avatar" v-bind:src="dataProvider.avatar"></image></view>
         <p class="title">{{dataProvider.name}}</p>
         <view class="desc">
            {{dataProvider.comment}}
@@ -17,9 +17,6 @@
 <script>
 export default {
   props: {
-    name: String,
-    comment: String,
-    avatar: String,
     dataProvider: {
       type: Object,
       default: {}
@@ -43,7 +40,6 @@ export default {
 
   methods: {
     touchStart(e) {
-      console.log('e===', e)
       const touch = e.touches[0]
       this.touch.startX = touch.pageX
       this.touch.startY = touch.pageY
@@ -61,7 +57,7 @@ export default {
         this.translate({ 
           fromPosX: this.touch.touchMoveX, 
           toPosX: this.windowW, 
-          duration: 200, 
+          duration: 300, 
           direction: this.touch.direction
         })
       } else {
@@ -78,9 +74,9 @@ export default {
           const nowTime = Date.now();
           let percent = (nowTime - startTime) / duration;
           if (percent >= 1) {
+            this.showCard = false;
             percent = 1;
             this.touch.direction = '';
-            this.showCard = false;
             this.$emit('onShift')
           }
           const posOrNeg = direction === 'left' ? -1 : 1;
@@ -124,13 +120,18 @@ export default {
   box-shadow: 0rpx 2rpx 20rpx 0 rgba(0,0,0,.17);
 }
 
-.avatar {
-  display: block;
+.avatar-wrapper {
   width: 80rpx;
   height: 80rpx;
   margin: 0 auto;
-  margin-bottom: 10rpx;
+  margin-bottom: 5rpx;
   border-radius: 100%;
+  overflow: hidden;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
 }
 
 .title {
@@ -141,9 +142,12 @@ export default {
 }
 
 .desc {
+  height:500rpx;
+  overflow:auto;
   line-height: 40rpx;
   font-size: 28rpx;
   color: #9B9B9B;
+  word-break:break-all;
 }
 
 .time {

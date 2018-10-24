@@ -15,11 +15,13 @@ exports.main = async (event, context) => {
       .get();
 
     const list = listRes.data;
+    const backTotalItem = list.length;
     const countRes = await db.collection(collection).count();
     const totalItem = countRes.total;
 
     return {
       list,
+      backTotalItem,
       startIdx,
       size,
       totalItem

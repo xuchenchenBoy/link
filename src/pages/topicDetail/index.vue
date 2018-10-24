@@ -6,13 +6,16 @@
       @onShift="onShift" 
       v-bind:dataProvider="item" 
       v-bind:zIndex="-index" 
-      v-bind:selected="selectIdx === index"
+      v-bind:selected="index === 0"
     />
-    <div class="empty-card empty-card-1"><loading /></div>
+    <div class="empty-card empty-card-1">
+      <span v-if="isEnd">已翻看结束</span>
+      <loading v-else />
+    </div>
     <div class="empty-card empty-card-2"></div>
     <div class="empty-card empty-card-3"></div>
-    <div class="bottom">
-      <text key="2">{{selectIdx + 1}}/{{lifeData.totalItem}}</text>
+    <div class="bottom" v-show="lifeData.totalItem">
+      <text key="2">{{lifeData.startIdx + selectIdx + 1}}/{{lifeData.totalItem}}</text>
     </div>
   </div>
 </template>
@@ -31,12 +34,13 @@ export default {
         size: INIT_SIZE,
         startIdx: INIT_START_IDX,
         totalItem: 0,
-        totalPage: 0
+        backTotalItem: 0
       },
       selectIdx: 0,
       requesting: false,
       collection: '', // 查寻的明细数据库名
       title: '',
+      isEnd: false, // 是否全部翻完
     }
   },
 
@@ -57,6 +61,7 @@ export default {
         }
       }).then(res => {
         this.lifeData = { ...res.result, list: res.result.list || [] }
+        this.selectIdx = 0
         this.requesting = false
       }).catch(err => {
         this.requesting = false
@@ -70,13 +75,31 @@ export default {
     onShift() {
       if (this.requesting) return
       this.selectIdx += 1
-      const currentCount = this.lifeData.list.length
+      this.lifeData.list.shift()
+      const currentCount = this.lifeData.backTotalItem
+      if (currentCount < INIT_SIZE) {
+        this.isEnd = true;
+        return;
+      }
+
       if (this.selectIdx >= currentCount) {
         this.requesting = true
-        const startIdx = this.lifeData.startIdx + this.lifeData.list.length;
-        this.getList(startIdx, size)
+        const startIdx = this.lifeData.startIdx + currentCount;
+        this.getList(startIdx)
       }
-    }
+    },
+
+    async recordSkipIdx() {
+      const startIdx = this.lifeData.startIdx + this.selectIdx
+      await wx.cloud.callFunction({
+        name: 'setTopicSkipIdx',
+        data: {
+          token: getToken(), 
+          collection: 'lifeRecord', 
+          startIdx
+        }
+      })
+    },
   },
 
   onShareAppMessage(res) {
@@ -87,14 +110,34 @@ export default {
     }
   },
 
-  mounted (e) {
+  async mounted (e) {
     const { collection, title } = this.$root.$mp.query;
     wx.setNavigationBarTitle({
       title
     })
     this.collection = collection;
     this.title = title;
-    this.getList()
+    try {
+      const res = await wx.cloud.callFunction({
+        name: 'getTopicSkipIdx',
+        data: {
+          token: getToken(), 
+          collection: 'lifeRecord'
+        }
+      })
+      const { startIdx } = res.result.data || {};
+      this.getList(startIdx)
+    } catch (e) {
+      console.log(e)
+    }
+  },
+
+  onHide() {
+    this.recordSkipIdx()
+  },
+
+  onUnload() {
+    this.recordSkipIdx()
   }
 }
 </script>
@@ -120,6 +163,7 @@ export default {
   z-index: 30;
   width: 500rpx;
   height: 660rpx;
+  box-shadow: 0rpx 2rpx 20rpx 0 rgba(0,0,0,.1);
 }
 
 .empty-card-2 {
@@ -137,6 +181,9 @@ export default {
 }
 
 .bottom {
+  position: fixed;
+  left: 0;
+  top: 940rpx;
   width: 100%;
   text-align: center;
   color: #9B9B9B;
