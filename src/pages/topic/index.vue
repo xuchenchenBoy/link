@@ -42,6 +42,14 @@ import loading from '@/components/loading'
       }
     },
 
+    onShareAppMessage(res) {
+      const { title, collection } = this;
+      return {
+        title: '80、90的话题',
+        path: `/pages/topic/main`
+      }
+    },
+
     created() {
       this.getTopic()
     }
