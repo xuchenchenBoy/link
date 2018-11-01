@@ -160,7 +160,7 @@ export default {
   margin: auto;
   background: #fff;
   border-radius: 7rpx;
-  box-shadow: 0rpx 2rpx 20rpx 0 rgba(0,0,0,.17);
+  box-shadow: 0 2px 4px 2px rgba(215,215,215,0.50);
 }
 
 .empty-card-1 {
@@ -168,21 +168,21 @@ export default {
   z-index: 30;
   width: 500rpx;
   height: 660rpx;
-  box-shadow: 0rpx 2rpx 20rpx 0 rgba(0,0,0,.1);
+  box-shadow: 0 2px 4px 2px rgba(215,215,215,0.20);
 }
 
 .empty-card-2 {
-  top: 120rpx;
-  z-index: 20;
-  width: 480rpx;
-  height: 660rpx;
+  top:145rpx;
+  z-index:20;
+  width:488rpx;
+  height:660rpx;
 }
 
 .empty-card-3 {
-  top: 110rpx;
-  z-index: 10;
-  width: 460rpx;
-  height: 660rpx;
+  top:156rpx;
+  z-index:10;
+  width:464rpx;
+  height:660rpx;
 }
 
 .bottom {

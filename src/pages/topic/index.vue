@@ -3,6 +3,7 @@
     <div class="card" v-for="item in list" :key="item.title" v-on:click="goDetail(item.fromCollection, item.title)" >
       <p class="title">{{item.title}}</p>
       <p class="from">问答来源：{{item.from}}</p>
+      <img class="ornament" src="/static/imgs/flower.png" alt="">
     </div>
   </div>
   <loading v-else />
@@ -62,18 +63,27 @@ import loading from '@/components/loading'
   }
 
   .card {
+    position: relative;
     width: 630rpx;
     padding: 50rpx 40rpx 20rpx;
     margin: 0 auto;
-    box-shadow: 0 2rpx 10rpx 0 rgba(0,0,0,.17);
-    border-radius: 7rpx;
     font-size: 32rpx;
     background: #fff;
+    box-shadow: 0 2px 4px 3px rgba(241,237,237,0.50);
+    border-radius: 10rpx;
 
     &:active {
       background: rgba(255, 255, 255, .3);
       box-shadow: 0 1rpx 8rpx 0 rgba(0,0,0,.17);
     }
+  }
+
+  .ornament {
+    position: absolute;
+    right:26rpx;
+    top:18px;
+    width:66rpx;
+    height:99rpx;
   }
 
   .title {
