@@ -5,7 +5,7 @@
  */
 import { setToken, getToken } from '@/utils/authorize'
 
-export default async function wxCloudAsync(name, data) {
+export default async function wxCloudSync(name, data) {
   const token = getToken()
   if (token) {
     return await wx.cloud.callFunction({

@@ -3,7 +3,7 @@
  * @api { String } 微信api名称
  * @params { Object } 参数
  */
-export default function wxAsync({ api, params = {} }) {
+export default function wxSync({ api, params = {} }) {
   return new Promise((resolve, reject) => {
     wx[api]({
       ...params,

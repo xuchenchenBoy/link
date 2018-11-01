@@ -25,7 +25,7 @@ import card from '@/components/card'
 import loading from '@/components/loading'
 import { INIT_START_IDX, INIT_SIZE } from '@/constants'
 import { getToken } from '@/utils/authorize'
-import wxCloudAsync from '@/utils/wxCloudAsync'
+import wxCloudSync from '@/utils/wxCloudSync'
 
 export default {
   data () {
@@ -124,7 +124,7 @@ export default {
     this.title = title;
     try {
       // 获取上次浏览的卡片索引值
-      const res = await wxCloudAsync(
+      const res = await wxCloudSync(
         'getTopicSkipIdx',
         {
           collection: `${this.collection}Record`

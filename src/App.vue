@@ -1,6 +1,5 @@
 <script>
 import { setToken, getToken } from '@/utils/authorize'
-import wxAsync from '@/utils/wxAsync'
 
 export default {
   async created () {
