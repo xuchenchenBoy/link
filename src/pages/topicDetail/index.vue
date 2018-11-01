@@ -6,7 +6,7 @@
       @onShift="onShift" 
       v-bind:dataProvider="item" 
       v-bind:zIndex="-index" 
-      v-bind:selected="index === 0"
+      v-bind:selected="index === selectIdx"
     />
     <div class="empty-card empty-card-1">
       <span v-if="isEnd">已翻看结束</span>
@@ -76,15 +76,17 @@ export default {
     // 切换下一页
     onShift() {
       if (this.requesting) return
+      // this.lifeData.list.shift()
       this.selectIdx += 1
-      this.lifeData.list.shift()
       const currentCount = this.lifeData.backTotalItem
       if (currentCount < INIT_SIZE) { // 阅读完所有卡片
+        this.lifeData.list = []
         this.isEnd = true;
         return;
       }
 
       if (this.selectIdx >= currentCount) { // 阅读完请求的卡片
+        this.lifeData.list = []
         this.requesting = true
         const startIdx = this.lifeData.startIdx + currentCount;
         this.getList(startIdx)

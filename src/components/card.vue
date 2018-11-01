@@ -57,7 +57,7 @@ export default {
         this.translate({ 
           fromPosX: this.touch.touchMoveX, 
           toPosX: this.windowW, 
-          duration: 300, 
+          duration: 350, 
           direction: this.touch.direction
         })
       } else {
