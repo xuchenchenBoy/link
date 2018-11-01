@@ -17,7 +17,7 @@
 <script>
 export default {
   props: {
-    dataProvider: {
+    dataProvider: { // 卡片内的信息
       type: Object,
       default: {}
     },
@@ -32,9 +32,9 @@ export default {
         startY: 0,
         touchMoveY: 0,
         touchMoveX: 0,
-        direction: ''
+        direction: '', // 滑动的方位
       },
-      showCard: true
+      showCard: true, // 是否显示卡片
     }
   },
 
@@ -52,7 +52,7 @@ export default {
       this.touch.touchMoveY = touch.pageY - this.touch.startY
     },
     touchEnd() {
-      if (Math.abs(this.touch.touchMoveX) > 100) {
+      if (Math.abs(this.touch.touchMoveX) > 100) { // 偏移量大于100
         this.touch.direction = this.touch.touchMoveX > 0 ? 'right' : 'left';
         this.translate({ 
           fromPosX: this.touch.touchMoveX, 
@@ -73,7 +73,7 @@ export default {
         setTimeout(() => {
           const nowTime = Date.now();
           let percent = (nowTime - startTime) / duration;
-          if (percent >= 1) {
+          if (percent >= 1) { // 切换下一页
             this.showCard = false;
             percent = 1;
             this.touch.direction = '';
@@ -81,7 +81,7 @@ export default {
           }
           const posOrNeg = direction === 'left' ? -1 : 1;
           this.touch.touchMoveX = toPosX * percent * posOrNeg + fromPosX;
-          if (percent < 1) {
+          if (percent < 1) { // 移除动作
             run()
           } 
         }, 100);

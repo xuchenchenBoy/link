@@ -33,12 +33,12 @@ export default {
       lifeData: {
         list: [],
         size: INIT_SIZE,
-        startIdx: INIT_START_IDX,
+        startIdx: INIT_START_IDX, // 下次进来，开始阅读的位置数
         totalItem: 0,
-        backTotalItem: 0
+        backTotalItem: 0, // 当前返回的阅读量
       },
-      selectIdx: 0,
-      requesting: false,
+      selectIdx: 0, // 选择的卡片索引值
+      requesting: false, // 是否正在请求列表
       collection: '', // 查寻的明细数据库名
       title: '',
       isEnd: false, // 是否全部翻完
@@ -73,23 +73,25 @@ export default {
       })
     },
 
+    // 切换下一页
     onShift() {
       if (this.requesting) return
       this.selectIdx += 1
       this.lifeData.list.shift()
       const currentCount = this.lifeData.backTotalItem
-      if (currentCount < INIT_SIZE) {
+      if (currentCount < INIT_SIZE) { // 阅读完所有卡片
         this.isEnd = true;
         return;
       }
 
-      if (this.selectIdx >= currentCount) {
+      if (this.selectIdx >= currentCount) { // 阅读完请求的卡片
         this.requesting = true
         const startIdx = this.lifeData.startIdx + currentCount;
         this.getList(startIdx)
       }
     },
 
+    // 记录当前阅读的卡片索引值
     async recordSkipIdx() {
       const startIdx = this.lifeData.startIdx + this.selectIdx
       await wx.cloud.callFunction({
@@ -119,6 +121,7 @@ export default {
     this.collection = collection;
     this.title = title;
     try {
+      // 获取上次浏览的卡片索引值
       const res = await wxCloudAsync(
         'getTopicSkipIdx',
         {

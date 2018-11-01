@@ -23,7 +23,7 @@ import loading from '@/components/loading'
     },
 
     methods: {
-      getTopic() {
+      getTopic() { // 获取题目
         wx.cloud.callFunction({
           name: 'topic'
         }).then((res) => {
