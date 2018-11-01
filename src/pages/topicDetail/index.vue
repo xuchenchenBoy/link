@@ -25,6 +25,7 @@ import card from '@/components/card'
 import loading from '@/components/loading'
 import { INIT_START_IDX, INIT_SIZE } from '@/constants'
 import { getToken } from '@/utils/authorize'
+import wxCloudAsync from '@/utils/wxCloudAsync'
 
 export default {
   data () {
@@ -118,13 +119,12 @@ export default {
     this.collection = collection;
     this.title = title;
     try {
-      const res = await wx.cloud.callFunction({
-        name: 'getTopicSkipIdx',
-        data: {
-          token: getToken(), 
+      const res = await wxCloudAsync(
+        'getTopicSkipIdx',
+        {
           collection: 'lifeRecord'
         }
-      })
+      )
       const { startIdx } = res.result.data || {};
       this.getList(startIdx)
     } catch (e) {

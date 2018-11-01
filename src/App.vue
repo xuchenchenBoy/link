@@ -14,21 +14,6 @@ export default {
         traceUser: true
       })
     }
-    
-    // 未记录用户
-    if (!getToken()) {
-      try {
-        const res = await wx.cloud.callFunction({
-          name: 'login'
-        })
-        const { result } = res;
-        const { appId, openId } = result || {};
-        const token = `${appId}${openId}`;
-        setToken(token)
-      } catch (e) {
-        console.log('e====', e)
-      }
-    }
   }
 }
 </script>
