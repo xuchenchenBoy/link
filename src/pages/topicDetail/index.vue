@@ -100,7 +100,7 @@ export default {
         name: 'setTopicSkipIdx',
         data: {
           token: getToken(), 
-          collection: 'lifeRecord', 
+          collection: `${this.collection}Record`, 
           startIdx
         }
       })
@@ -127,7 +127,7 @@ export default {
       const res = await wxCloudAsync(
         'getTopicSkipIdx',
         {
-          collection: 'lifeRecord'
+          collection: `${this.collection}Record`
         }
       )
       const { startIdx } = res.result.data || {};
