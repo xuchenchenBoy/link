@@ -45,7 +45,7 @@ import loading from '@/components/loading'
     onShareAppMessage(res) {
       const { title, collection } = this;
       return {
-        title: '80、90的话题',
+        title: '有意思的你和我',
         path: `/pages/topic/main`
       }
     },
