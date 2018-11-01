@@ -15,7 +15,7 @@
     <div class="empty-card empty-card-2"></div>
     <div class="empty-card empty-card-3"></div>
     <div class="bottom" v-show="lifeData.totalItem">
-      <text key="2">{{lifeData.startIdx + selectIdx + 1}}/{{lifeData.totalItem}}</text>
+      <text class="size" key="2">{{lifeData.startIdx + selectIdx + 1}} / {{lifeData.totalItem}}</text>
     </div>
   </div>
 </template>
@@ -188,11 +188,20 @@ export default {
 .bottom {
   position: fixed;
   left: 0;
-  top: 940rpx;
+  top: 960rpx;
   width: 100%;
   text-align: center;
   color: #9B9B9B;
   font-size: 28rpx;
+}
+
+.size {
+  display: inline-block;
+  padding: 8rpx 20rpx;
+  box-shadow: 0rpx 2rpx 8rpx 0 rgba(0,0,0,.1);
+  border-radius:7rpx;
+  font-size: 26rpx;
+  color: #9B9B9B;
 }
 
 .shift {

@@ -117,7 +117,7 @@ export default {
   margin: auto;
   background: #fff;
   border-radius: 7rpx;
-  box-shadow: 0rpx 2rpx 20rpx 0 rgba(0,0,0,.17);
+  box-shadow: 0rpx 2rpx 16rpx 0 rgba(0,0,0,.13);
 }
 
 .avatar-wrapper {
