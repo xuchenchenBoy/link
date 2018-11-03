@@ -1,6 +1,6 @@
 <template>
   <div v-show="showCard" class="wrapper" :style="{zIndex: zIndex + 99 }">
-    <div :style="{transform: 'translate(' + touch.touchMoveX + 'px,' +  touch.touchMoveY + 'px)', boxShadow: selected ? '0rpx 2rpx 20rpx 0 rgba(0,0,0,.17)' : 'none' }" @touchstart.prevent="touchStart" @touchmove.prevent="touchMove" @touchend.prevent="touchEnd" ref="back" class="card">
+    <div :style="{transform: 'translate(' + touch.touchMoveX + 'px,' +  touch.touchMoveY + 'px)', boxShadow: selected ? '0px 1px 4px 0 rgba(0,0,0,.1)' : 'none' }" @touchstart.prevent="touchStart" @touchmove.prevent="touchMove" @touchend.prevent="touchEnd" ref="back" class="card">
       <img class="ornament" src="/static/imgs/flower.png" alt="">
       <template v-if="dataProvider.name">
         <view class="avatar-wrapper"><image class="avatar" v-bind:src="dataProvider.avatar"></image></view>
@@ -112,13 +112,13 @@ export default {
   left: 0;
   right: 0;
   z-index: 99;
-  width: 500rpx;
+  width: 482rpx;
   height: 660rpx;
   padding: 40rpx 50rpx;
   margin: auto;
   background: #fff;
   border-radius: 7rpx;
-  box-shadow: 0 2px 4px 2px rgba(215,215,215,0.2);
+  box-shadow: 0 2px 3px 2px rgba(215,215,215,0.12);
 }
 
 .ornament {

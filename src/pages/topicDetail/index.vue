@@ -143,6 +143,7 @@ export default {
 
   onUnload() {
     this.recordSkipIdx()
+    Object.assign(this.$data, this.$options.data())
   }
 }
 </script>
@@ -166,22 +167,22 @@ export default {
 .empty-card-1 {
   top: 130rpx;
   z-index: 30;
-  width: 500rpx;
+  width: 482rpx;
   height: 660rpx;
-  box-shadow: 0 2px 4px 2px rgba(215,215,215,0.20);
+  box-shadow: 0 2px 4px 2px rgba(215,215,215,0.25);
 }
 
 .empty-card-2 {
   top:145rpx;
   z-index:20;
-  width:488rpx;
+  width:456rpx;
   height:660rpx;
 }
 
 .empty-card-3 {
   top:156rpx;
   z-index:10;
-  width:464rpx;
+  width:435rpx;
   height:660rpx;
 }
 
