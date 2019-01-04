@@ -66,7 +66,7 @@ import loading from '@/components/loading'
     position: relative;
     width: 630rpx;
     padding: 50rpx 40rpx 20rpx;
-    margin: 0 auto;
+    margin: 0 auto 35rpx;
     font-size: 32rpx;
     background: #fff;
     box-shadow: 0 2px 4px 3px rgba(241,237,237,0.50);

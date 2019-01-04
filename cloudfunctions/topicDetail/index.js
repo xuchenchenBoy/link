@@ -11,7 +11,7 @@ exports.main = async (event, context) => {
     const listRes = await db.collection(collection)
       .limit(size)
       .skip(startIdx)
-      .orderBy('id', 'asc')
+      .orderBy('_id', 'asc')
       .get();
 
     const list = listRes.data;
