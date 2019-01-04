@@ -1,21 +1,6 @@
 # link
 
-> A Mpvue project
+> 抓取豆瓣上有趣的问答数据，以小程序卡片的形式，集中查看。
 
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## 预览
+![avatar](http://img-shop.kkkd.com/FrKs07oTqRtBdZF1-0YHTPvIRHJR)
