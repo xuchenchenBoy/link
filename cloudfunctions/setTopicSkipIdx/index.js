@@ -6,7 +6,8 @@ const db = cloud.database()
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-  const { token, collection, startIdx } = event;
+  let { token, collection, startIdx } = event;
+  startIdx = startIdx || 0;
   const latestStramp = Date.now()
   let record;
   try {

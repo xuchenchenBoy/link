@@ -11,6 +11,6 @@ exports.main = async (event, context) => {
     const record = await db.collection(collection).doc(token).get();
     return record;
   } catch (e) {
-    return null;
+    return { startIdx: 0 };
   }
 }
