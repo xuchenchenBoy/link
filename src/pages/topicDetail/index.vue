@@ -41,6 +41,7 @@ export default {
       requesting: false, // 是否正在请求列表
       collection: '', // 查寻的明细数据库名
       title: '',
+      orderBy: 'asc', // 列表默认升序
       isEnd: false, // 是否全部翻完
     }
   },
@@ -58,7 +59,8 @@ export default {
           startIdx,
           size,
           token: getToken(),
-          collection: this.collection
+          collection: this.collection,
+          orderBy: this.orderBy
         }
       }).then(res => {
         this.lifeData = { ...res.result, list: res.result.list || [] }
@@ -108,20 +110,21 @@ export default {
   },
 
   onShareAppMessage(res) {
-    const { title, collection } = this;
+    const { title, collection, orderBy, } = this;
     return {
       title,
-      path: `/pages/topicDetail/main?collection=${collection}&title=${title}`
+      path: `/pages/topicDetail/main?collection=${collection}&title=${title}&orderBy=${orderBy}`
     }
   },
 
   async mounted (e) {
-    const { collection, title } = this.$root.$mp.query;
+    const { collection, title, orderBy, } = this.$root.$mp.query;
     wx.setNavigationBarTitle({
       title
     })
     this.collection = collection;
     this.title = title;
+    this.orderBy = orderBy;
     try {
       // 获取上次浏览的卡片索引值
       const res = await wxCloudSync(

@@ -1,6 +1,6 @@
 <template>
   <div v-if="list.length" class="wrapper">
-    <div class="card" v-for="item in list" :key="item.title" v-on:click="goDetail(item.fromCollection, item.title)" >
+    <div class="card" v-for="item in list" :key="item.title" v-on:click="goDetail(item.fromCollection, item.title, item.orderBy)" >
       <p class="title">{{item.title}}</p>
       <p class="from">问答来源：{{item.from}}</p>
       <img class="ornament" src="/static/imgs/flower.png" alt="">
@@ -36,9 +36,9 @@ import loading from '@/components/loading'
           })
         })
       },
-      goDetail(collection, title) {
+      goDetail(collection, title, orderBy) {
         wx.navigateTo({
-          url: `/pages/topicDetail/main?collection=${collection}&title=${title}`
+          url: `/pages/topicDetail/main?collection=${collection}&title=${title}&orderBy=${orderBy}`
         })
       }
     },

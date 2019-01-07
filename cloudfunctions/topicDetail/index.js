@@ -6,12 +6,12 @@ const db = cloud.database()
 
 // 获取现状表的列表
 exports.main = async (event, context) => {
-  const { startIdx = 1, size = 10, collection } = event;
+  const { startIdx = 1, size = 10, collection, orderBy='asc' } = event;
   try {
     const listRes = await db.collection(collection)
       .limit(size)
       .skip(startIdx)
-      .orderBy('_id', 'asc')
+      .orderBy('_id', orderBy)
       .get();
 
     const list = listRes.data;
