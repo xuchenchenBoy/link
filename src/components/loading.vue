@@ -25,20 +25,26 @@
   background-color: rgba(0, 0, 0, .17);
   border-radius: 100%;
   display: inline-block;
-  -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
-  animation: bouncedelay 1.4s infinite ease-in-out;
+  transform: scale(0);
+  -webkit-animation: bouncedelay 1.5s infinite ease-in-out;
+  animation: bouncedelay 1.5s infinite ease-in-out;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
 }
 
 .spinner .bounce1 {
-  -webkit-animation-delay: -0.32s;
-  animation-delay: -0.32s;
+  -webkit-animation-delay: 0.16s;
+  animation-delay: 0.16s;
 }
 
 .spinner .bounce2 {
-  -webkit-animation-delay: -0.16s;
-  animation-delay: -0.16s;
+  -webkit-animation-delay: 0.32s;
+  animation-delay: 0.32s;
+}
+
+.spinner .bounce3 {
+  -webkit-animation-delay: 0.48s;
+  animation-delay: 0.48s;
 }
 
 @-webkit-keyframes bouncedelay {
