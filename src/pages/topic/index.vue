@@ -1,9 +1,9 @@
 <template>
   <div v-if="list.length" class="wrapper">
-    <div class="card" v-for="item in list" :key="item.title" v-on:click="goDetail(item.fromCollection, item.title, item.orderBy)" >
+    <div class="card" v-for="item in list" :key="item.title" v-on:click="goDetail(item.fromCollection, item.title, item.orderBy, item.iconUrl)" >
       <p class="title">{{item.title}}</p>
       <p class="from">问答来源：{{item.from}}</p>
-      <img class="ornament" src="/static/imgs/flower.png" alt="">
+      <img class="ornament" :src="item.iconUrl" alt="icon">
     </div>
   </div>
   <loading v-else />
@@ -36,9 +36,9 @@ import loading from '@/components/loading'
           })
         })
       },
-      goDetail(collection, title, orderBy) {
+      goDetail(collection, title, orderBy, iconUrl) {
         wx.navigateTo({
-          url: `/pages/topicDetail/main?collection=${collection}&title=${title}&orderBy=${orderBy}`
+          url: `/pages/topicDetail/main?collection=${collection}&title=${title}&orderBy=${orderBy}&iconUrl=${iconUrl}`
         })
       }
     },

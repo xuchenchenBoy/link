@@ -7,6 +7,7 @@
       v-bind:dataProvider="item" 
       v-bind:zIndex="-index" 
       v-bind:selected="index === selectIdx"
+      v-bind:iconUrl="iconUrl"
     />
     <div class="empty-card empty-card-1">
       <span v-if="isEnd">已翻看结束</span>
@@ -42,6 +43,7 @@ export default {
       collection: '', // 查寻的明细数据库名
       title: '',
       orderBy: 'asc', // 列表默认升序
+      iconUrl: '',
       isEnd: false, // 是否全部翻完
     }
   },
@@ -110,21 +112,22 @@ export default {
   },
 
   onShareAppMessage(res) {
-    const { title, collection, orderBy, } = this;
+    const { title, collection, orderBy, iconUrl } = this;
     return {
       title,
-      path: `/pages/topicDetail/main?collection=${collection}&title=${title}&orderBy=${orderBy}`
+      path: `/pages/topicDetail/main?collection=${collection}&title=${title}&orderBy=${orderBy}&iconUrl=${iconUrl}`
     }
   },
 
   async mounted (e) {
-    const { collection, title, orderBy, } = this.$root.$mp.query;
+    const { collection, title, orderBy, iconUrl } = this.$root.$mp.query;
     wx.setNavigationBarTitle({
       title
     })
     this.collection = collection;
     this.title = title;
     this.orderBy = orderBy;
+    this.iconUrl = iconUrl;
     try {
       // 获取上次浏览的卡片索引值
       const res = await wxCloudSync(

@@ -1,7 +1,7 @@
 <template>
   <div v-show="showCard" class="wrapper" :style="{zIndex: zIndex + 99 }">
     <div :style="{transform: 'translate(' + touch.touchMoveX + 'px,' +  touch.touchMoveY + 'px)', boxShadow: selected ? '0px 1px 4px 0 rgba(0,0,0,.1)' : 'none' }" @touchstart.prevent="touchStart" @touchmove.prevent="touchMove" @touchend.prevent="touchEnd" ref="back" class="card">
-      <img class="ornament" src="/static/imgs/flower.png" alt="">
+      <img class="ornament" :src="iconUrl" alt="icon">
       <template v-if="dataProvider.name">
         <view class="avatar-wrapper"><image class="avatar" v-bind:src="dataProvider.avatar"></image></view>
         <p class="title">{{dataProvider.name}}</p>
@@ -23,7 +23,8 @@ export default {
       default: {}
     },
     zIndex: Number,
-    selected: Boolean
+    selected: Boolean,
+    iconUrl: String,
   },
 
   data() {
